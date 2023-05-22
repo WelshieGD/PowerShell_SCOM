@@ -13,6 +13,4 @@ $Class = Get-SCOMClass -Name "Microsoft.Windows.Computer"
 # $Instances = Get-SCOMClassInstance -Class $Class | Select DisplayName, IsAvailable, AvailabilityLastModified | sort IsAvailable -descending
 
 $Instances = Get-SCOMClassInstance -Class $Class | Select DisplayName, IsAvailable, AvailabilityLastModified, InMaintenanceMode, ``[Microsoft.Windows.Computer`].IPAddress | sort IsAvailable -descending
-
-
 $instances

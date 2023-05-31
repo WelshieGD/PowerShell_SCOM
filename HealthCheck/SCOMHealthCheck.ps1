@@ -17,6 +17,8 @@
   #   www.OpsConfig.com
   #
   #   As with all scripts I post, this is provided AS-IS without warrenty so please test first and use at your own risk.
+  # 
+  # Graham Davies added SQL Cumulative Update - SERVERPROPERTY('ProductUpdateLevel') AS "CU"
   ######################################################################################################################
   $StartTime=Get-Date
 
@@ -170,7 +172,7 @@ from dbo.sysfiles a
 
   #SQL Server Function to query the version of SQL
   $SQLVersion =@"
-SELECT  SERVERPROPERTY('productversion') AS "Product Version", SERVERPROPERTY('productlevel') AS "Service Pack", SERVERPROPERTY ('edition') AS "Edition"
+SELECT  SERVERPROPERTY('productversion') AS "Product Version", SERVERPROPERTY('productlevel') AS "Service Pack", SERVERPROPERTY('ProductUpdateLevel') AS "CU", SERVERPROPERTY ('edition') AS "Edition"
 "@
 
   # Run the Size Query against the Operational Database and Data Warehouse Database Servers
@@ -184,9 +186,9 @@ SELECT  SERVERPROPERTY('productversion') AS "Product Version", SERVERPROPERTY('p
   # Insert the Database Server details into the Report
   $ReportOutput += "<h2>Database Servers</h2>"
   $ReportOutput += "<p>Operational Database Server      :  $OperationsManagerDBServer</p>"
-  $ReportOutput += $OPSQLVER | Select-Object "Product Version", "Service Pack", Edition | ConvertTo-Html -Fragment
+  $ReportOutput += $OPSQLVER | Select-Object "Product Version", "Service Pack", CU, Edition | ConvertTo-Html -Fragment
   $ReportOutput += "<p>Data Warehouse Database Server   :  $OperationsManagerDWServer</p>"
-  $ReportOutput += $DWSQLVER | Select-Object "Product Version", "Service Pack", Edition | ConvertTo-Html -Fragment
+  $ReportOutput += $DWSQLVER | Select-Object "Product Version", "Service Pack", CU, Edition | ConvertTo-Html -Fragment
 
   # Insert the Size Results for the Operational Database into the Report
   $ReportOutput += "<h3>$OperationsManagerDBServer Operations Manager DB</h4>"

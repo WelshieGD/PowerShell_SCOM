@@ -30,7 +30,7 @@ $References | Select Name
 
 # Export Management Packs
 Get-SCOMManagementPack | where {$_.Sealed -eq $True } | Export-SCOMManagementpack -Path "C:\Management Packs\Sealed"
-Get-SCOMManagementPack | where {$_.Sealed -eq $False } | Export-SCOMManagementpack -Path "C:\Management Packs\Sealed"
+Get-SCOMManagementPack | where {$_.Sealed -eq $False } | Export-SCOMManagementpack -Path "C:\Management Packs\UnSealed"
 
 # Remove MP
 MPName = "SQL server 2016"
